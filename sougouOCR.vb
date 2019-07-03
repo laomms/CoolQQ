@@ -16,19 +16,7 @@ Public Sub SougouOCR(ImagePath As String)
             szRes = szRes + vbNewLine + jsons.SelectToken("result(" & i & ").content").ToString.Replace(vbLf, "")
         Next
     End Sub
-        
-    Public Function OCR_sougou_Content_Length(img As Image) As Byte()
-        On Error Resume Next
-        Dim bytes = Encoding.UTF8.GetBytes("------WebKitFormBoundary8orYTmcj8BHvQpVU" & vbNewLine & "Content-Disposition: form-data; name=pic; filename=pic.jpg" & vbNewLine & "Content-Type: image/jpeg" & vbNewLine & vbNewLine)
-        Dim Array = ImgToBytes(img)
-        Dim bytes2 = Encoding.UTF8.GetBytes(vbNewLine & "------WebKitFormBoundary8orYTmcj8BHvQpVU--" & vbNewLine)
-        Dim array2 As Byte()
-        ReDim array2(bytes.Length + Array.Length + bytes2.Length)
-        bytes.CopyTo(array2, 0)
-        Array.CopyTo(array2, bytes.Length)
-        bytes2.CopyTo(array2, bytes.Length + Array.Length)
-        Return array2
-    End Function
+
 
     Public Function urlimageTobyte(ByVal url As String) As Byte()
         Dim bytedata As Byte() = Nothing
@@ -81,11 +69,11 @@ Public Function OCR_sougou_Image_Bytes(url As String) As Byte()
         bytes2.CopyTo(array2, bytes.Length + Array.Length)
         Return array2
     End Function
+
+
     Public Function OCR_sougou_SogouPost(url As String, cookie As CookieContainer, content As Byte()) As String
         Dim result As String = ""
         Try
-
-
             Dim httpWebRequest As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
             httpWebRequest.Method = "POST"
             httpWebRequest.CookieContainer = cookie
