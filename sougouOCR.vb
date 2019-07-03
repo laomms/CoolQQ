@@ -29,3 +29,29 @@ Public Sub SougouOCR(ImagePath As String)
         bytes2.CopyTo(array2, bytes.Length + Array.Length)
         Return array2
     End Function
+
+    Public Function urlimageTobyte(ByVal url As String) As Byte()
+        Dim bytedata As Byte() = Nothing
+
+        Try
+            Dim httpWebRequest As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
+            httpWebRequest.Method = "GET"
+            Dim httpWebResponse As HttpWebResponse = httpWebRequest.GetResponse()
+            If httpWebResponse.StatusCode = 200 Then
+                Using stream As Stream = httpWebRequest.GetResponse().GetResponseStream()
+                    Dim memoryStream = New MemoryStream()
+                    stream.CopyTo(memoryStream)
+                    Dim array = New Byte(memoryStream.Length - 1) {}
+                    memoryStream.Position = 0L
+                    memoryStream.Read(array, 0, CInt(memoryStream.Length))
+                    memoryStream.Close()
+                    bytedata = array
+                    stream.Close()
+                End Using
+                httpWebResponse.Close()
+            End If
+        Catch ex As Exception
+
+        End Try
+        Return bytedata
+    End Function
