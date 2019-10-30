@@ -26,7 +26,7 @@ Dim SecretKey = your SecretKey
 
         Dim Authorization = "TC3-HMAC-SHA256 Credential=" & SecretId & "/" & szDate & "/aai/tc3_request, SignedHeaders=content-type;host, Signature=" & Signature
 
-        'Dim url = "https://aai.tencentcloudapi.com/?Limit=10&Offset=0"
+
         Dim url = "https://aai.ap-guangzhou.tencentcloudapi.com"
         Dim httpWebRequest As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
         httpWebRequest.KeepAlive = True
@@ -40,9 +40,6 @@ Dim SecretKey = your SecretKey
         httpWebRequest.Headers.Add("X-TC-Version: 2018-05-22")
         httpWebRequest.Headers.Add("X-TC-Timestamp:" & TimeStamp.ToString)
         httpWebRequest.Headers.Add("X-TC-Region: ap-guangzhou-open")
-        'httpWebRequest.Headers.Add("Accept-Encoding", "gzip, deflate")
-        'httpWebRequest.Headers.Add("Cache-Control", "max-age=0")
-        'httpWebRequest.Headers.Add("Upgrade-Insecure-Requests", "1")
         httpWebRequest.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
         Dim requestStream = httpWebRequest.GetRequestStream()
         requestStream.Write(data, 0, data.Length)
