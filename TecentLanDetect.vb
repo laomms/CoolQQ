@@ -74,3 +74,31 @@ Public Function LanguageDetect(szContet As String) As String
 
         Return szRes
     End Function
+ Public Function GenerateSHA256String(ByVal inputString) As String
+        Dim sha256 As SHA256 = SHA256Managed.Create()
+        Dim bytes As Byte() = Encoding.UTF8.GetBytes(inputString)
+        Dim hash As Byte() = sha256.ComputeHash(bytes)
+        Dim stringBuilder As New StringBuilder()
+
+        For i As Integer = 0 To hash.Length - 1
+            stringBuilder.Append(hash(i).ToString("X2"))
+        Next
+        Return stringBuilder.ToString()
+    End Function
+    Public Function sign256(ByVal key() As Byte, ByVal msg As String) As Byte()
+        Dim myEncoder As New System.Text.UTF8Encoding
+        Dim XML() As Byte = myEncoder.GetBytes(msg)
+        Dim myHMACSHA256 As New System.Security.Cryptography.HMACSHA256(key)
+        Dim HashCode As Byte() = myHMACSHA256.ComputeHash(XML)
+        Return HashCode
+    End Function
+    Public Function BytesToString(ByVal Input As Byte()) As String
+        Dim Result As New System.Text.StringBuilder(Input.Length * 2)
+        Dim Part As String
+        For Each b As Byte In Input
+            Part = Conversion.Hex(b)
+            If Part.Length = 1 Then Part = "0" & Part
+            Result.Append(Part)
+        Next
+        Return Result.ToString()
+    End Function
