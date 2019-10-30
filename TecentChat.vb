@@ -1,12 +1,12 @@
  Dim jsonText = "{""Text"":""你好"",""ProjectId"":0}"
         Dim data = Encoding.UTF8.GetBytes(jsonText)
-        Dim TimeStamp As Integer = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds  '1539084154 
-        Dim szDate = DateTime.UtcNow.ToString("yyyy-MM-dd")  ' "2018-10-09" 
+        Dim TimeStamp As Integer = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds  
+        Dim szDate = DateTime.UtcNow.ToString("yyyy-MM-dd")  
         Dim univDateTime = DateTime.UtcNow.ToUniversalTime()
         Dim r As System.Random = New Random(System.Environment.TickCount)
-        Dim Nonce = r.Next(10000000, 99999999)   '23823223 
-        Dim SecretId = "AKIDwlKK5MNAgww3vYo2tEJxMVP7ZmnY6PTH"   '"AKIDz8krbsJ5yKBZQpn74WFkmLPx3EXAMPLE" 
-        Dim SecretKey = "lGWaOyMUN4VilbCYeU8WhhSyEJ9oDNLb"    '"Gu5t9xGARNpq86cd98joQYCN3EXAMPLE" 
+        Dim Nonce = r.Next(10000000, 99999999)  
+Dim SecretId = your SecretId
+Dim SecretKey = your SecretKey
         Dim httpRequestMethod = "POST"
         Dim canonicalUri = "/"
         'Dim canonicalQueryString = "Limit=10&Offset=0"
