@@ -1,9 +1,9 @@
 public void IIDOCR(string ImagePath)
  {
 
-		var Authorization = HmacSha1Sign(Convert.ToInt64("1256493063"), "your id", "your password", "bucket-01", 2592000);
+		var Authorization = HmacSha1Sign(Convert.ToInt64(your appid), "your id", "your password", "bucket-01", 2592000);
 		var Text = "";
-		var jsonText = "{\"appid\":\"1256493063\",\"bucket\":\"bucket-01\",\"url\":\"" + ImagePath + "\"}";
+		var jsonText = "{\"appid\":\"your appid\",\"bucket\":\"bucket-01\",\"url\":\"" + ImagePath + "\"}";
 		var data = Encoding.UTF8.GetBytes(jsonText);
 		HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://recognition.image.myqcloud.com/ocr/general");
 		httpWebRequest.KeepAlive = true;
