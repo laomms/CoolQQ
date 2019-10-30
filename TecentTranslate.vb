@@ -3,7 +3,7 @@ Dim TimeStamp As Integer = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0))
             Dim Nonce = r.Next(10000000, 99999999)
             Dim value = HttpUtility.UrlEncode(RichTextBox1.Text, Encoding.UTF8).ToUpper()
             Dim params = New SortedDictionary(Of String, String) From {
-                {"app_id", "2116216563"},
+{"app_id", "your appid"},
                 {"time_stamp", TimeStamp.ToString},
                 {"nonce_str", Nonce},
                 {"text", value},
@@ -34,7 +34,7 @@ Dim TimeStamp As Integer = (DateTime.UtcNow - New DateTime(1970, 1, 1, 0, 0, 0))
             Dim szResult As String = jsons.SelectToken("data.target_text").ToString
 
  Private Function GetSign(ByVal params As SortedDictionary(Of String, String)) As String
-        Dim str = $"{GetUrlValue(params)}&app_key={"lMaNsVDFw6asBJji"}"
+Dim str = $"{GetUrlValue(params)}&app_key={"your appkey"}"
         Using md5csp = New MD5CryptoServiceProvider()
             Dim temp = Encoding.UTF8.GetBytes(str)
             temp = md5csp.ComputeHash(temp)
