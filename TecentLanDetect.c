@@ -1,0 +1,85 @@
+public string LanguageDetect(string szContet)
+{
+		var jsonText = "{\"Text\":\"" + Regex.Replace(szContet, "^[A-Za-z0-9]+$", "").Replace("\n", "").Trim + "\",\"ProjectId\":0}";
+		var data = Encoding.UTF8.GetBytes(jsonText);
+		int TimeStamp = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+		var szDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
+		var univDateTime = DateTime.UtcNow.ToUniversalTime();
+		System.Random r = new Random(System.Environment.TickCount);
+		var Nonce = r.Next(10000000, 99999999);
+		var SecretId = Dim SecretKey == Dim httpRequestMethod == "POST";
+		var canonicalUri = "/";
+		var canonicalHeaders = "content-type:application/json" + "\n" + "host:" + "tmt.ap-guangzhou.tencentcloudapi.com" + "\n";
+		var signedHeaders = "content-type;host";
+		var hashedRequestPayload = GenerateSHA256String(jsonText).ToLower();
+		var canonicalRequest = httpRequestMethod + "\n" + canonicalUri + "\n" + "\n" + canonicalHeaders + "\n" + signedHeaders + "\n" + hashedRequestPayload;
+
+		var credentialScope = szDate + "/tmt/tc3_request";
+		var hashedCanonicalRequest = GenerateSHA256String(canonicalRequest).ToLower();
+		var stringToSign = "TC3-HMAC-SHA256" + "\n" + TimeStamp.ToString() + "\n" + credentialScope + "\n" + hashedCanonicalRequest;
+
+		byte[] secretDate = sign256(Encoding.UTF8.GetBytes("TC3" + SecretKey), szDate);
+		byte[] secretService = sign256(secretDate, "tmt");
+		byte[] secretSigning = sign256(secretService, "tc3_request");
+		var Signature = BytesToString(sign256(secretSigning, stringToSign)).ToLower();
+
+		var Authorization = "TC3-HMAC-SHA256 Credential=" + SecretId + "/" + szDate + "/tmt/tc3_request, SignedHeaders=content-type;host, Signature=" + Signature;
+
+		var url = "https://tmt.ap-guangzhou.tencentcloudapi.com";
+		HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+		httpWebRequest.KeepAlive = true;
+		httpWebRequest.Method = "POST";
+		httpWebRequest.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+		httpWebRequest.ContentType = "application/json";
+		httpWebRequest.Host = "tmt.ap-guangzhou.tencentcloudapi.com";
+		httpWebRequest.Headers.Add(HttpRequestHeader.Authorization, Authorization);
+		httpWebRequest.Headers.Add("X-TC-Action: LanguageDetect");
+		httpWebRequest.Headers.Add("X-TC-RequestClient: APIExplorer");
+		httpWebRequest.Headers.Add("X-TC-Version: 2018-03-21");
+		httpWebRequest.Headers.Add("X-TC-Timestamp:" + TimeStamp.ToString());
+		httpWebRequest.Headers.Add("X-TC-Region: ap-guangzhou-open");
+		httpWebRequest.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+		var requestStream = httpWebRequest.GetRequestStream();
+		requestStream.Write(data, 0, data.Length);
+		requestStream.Close();
+		string result = "";
+		string szRes = "";
+		try
+		{
+			HttpWebResponse httpWebResponse = httpWebRequest.GetResponse();
+			if (httpWebResponse.ContentEncoding.ToLower().Contains("gzip"))
+			{
+				using (Stream stream = new System.IO.Compression.GZipStream(httpWebResponse.GetResponseStream, System.IO.Compression.CompressionMode.Decompress))
+				{
+					using (StreamReader reader = new StreamReader(stream))
+					{
+						result = reader.ReadToEnd();
+						Debug.Print(result);
+						reader.Close();
+					}
+					stream.Close();
+				}
+			}
+			else
+			{
+				using (Stream stream = httpWebRequest.GetResponse().GetResponseStream())
+				{
+					using (StreamReader reader = new StreamReader(stream))
+					{
+						result = reader.ReadToEnd();
+						JObject jsons = JObject.Parse(result);
+						szRes = jsons.SelectToken("Response").SelectToken("Lang").ToString();
+						reader.Close();
+					}
+					stream.Close();
+				}
+			}
+			httpWebResponse.Close();
+		}
+		catch (Exception ex)
+		{
+
+		}
+
+		return szRes;
+	}
