@@ -7,7 +7,9 @@ public string LanguageDetect(string szContet)
 		var univDateTime = DateTime.UtcNow.ToUniversalTime();
 		System.Random r = new Random(System.Environment.TickCount);
 		var Nonce = r.Next(10000000, 99999999);
-		var SecretId = Dim SecretKey == Dim httpRequestMethod == "POST";
+		var SecretId = Your SecretId
+                var SecretKey == Your SecretKey
+                var httpRequestMethod == "POST";
 		var canonicalUri = "/";
 		var canonicalHeaders = "content-type:application/json" + "\n" + "host:" + "tmt.ap-guangzhou.tencentcloudapi.com" + "\n";
 		var signedHeaders = "content-type;host";
