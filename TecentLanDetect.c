@@ -10,11 +10,10 @@ public string LanguageDetect(string szContet)
 		var SecretId = Your SecretId
                 var SecretKey == Your SecretKey
 
-		var canonicalUri = "/";
 		var canonicalHeaders = "content-type:application/json" + "\n" + "host:" + "tmt.ap-guangzhou.tencentcloudapi.com" + "\n";
 		var signedHeaders = "content-type;host";
 		var hashedRequestPayload = GenerateSHA256String(jsonText).ToLower();
-		var canonicalRequest = "POST" + "\n" + canonicalUri + "\n" + "\n" + canonicalHeaders + "\n" + signedHeaders + "\n" + hashedRequestPayload;
+		var canonicalRequest = "POST" + "\n" + "/" + "\n" + "\n" + canonicalHeaders + "\n" + signedHeaders + "\n" + hashedRequestPayload;
 
 		var credentialScope = szDate + "/tmt/tc3_request";
 		var hashedCanonicalRequest = GenerateSHA256String(canonicalRequest).ToLower();
