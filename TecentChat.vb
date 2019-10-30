@@ -12,7 +12,7 @@ Dim SecretKey = your SecretKey
         'Dim canonicalQueryString = "Limit=10&Offset=0"
         Dim canonicalHeaders = "content-type:application/json" + vbLf + "host:" + "aai.ap-guangzhou.tencentcloudapi.com" + vbLf
         Dim signedHeaders = "content-type;host"
-        Dim hashedRequestPayload = LCase(GenerateSHA256String(jsonText))  '2de754245439f7be7115c0d563dff680733be2e29507177744d1e4e7e6464c37
+        Dim hashedRequestPayload = LCase(GenerateSHA256String(jsonText))  
         Dim canonicalRequest = httpRequestMethod + vbLf + canonicalUri + vbLf + vbLf + canonicalHeaders + vbLf + signedHeaders + vbLf + hashedRequestPayload
 
         Dim credentialScope = szDate + "/aai/tc3_request"
