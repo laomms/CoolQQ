@@ -1,8 +1,8 @@
  Public Sub IIDOCR(ImagePath As String) 
 
-        Dim Authorization = HmacSha1Sign("1256493063", "your id", "your password", "bucket-01", 2592000)
+        Dim Authorization = HmacSha1Sign("your appid", "your id", "your password", "bucket-01", 2592000)
         Dim Text = ""
-        Dim jsonText = "{""appid"":""1256493063"",""bucket"":""bucket-01"",""url"":""" & ImagePath & """}"
+        Dim jsonText = "{""appid"":""your appid"",""bucket"":""bucket-01"",""url"":""" & ImagePath & """}"
         Dim data = Encoding.UTF8.GetBytes(jsonText)
         Dim httpWebRequest As HttpWebRequest = DirectCast(WebRequest.Create("https://recognition.image.myqcloud.com/ocr/general"), HttpWebRequest)
         httpWebRequest.KeepAlive = True
