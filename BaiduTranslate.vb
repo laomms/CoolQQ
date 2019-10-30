@@ -8,10 +8,10 @@ Public Function BaiduTranslate(szContent As String, nFlag As Integer) As String
         Else
             tostr = "en"
         End If
-        Dim appid = "20190503000293652"
+                        Dim appid = your appid
         Dim r As System.Random = New Random(System.Environment.TickCount)
         Dim salt = r.Next(10000, 99999)
-        Dim pass = "cVY1eN2GPyvyoBXR1RwO"
+                Dim pass = your pass
         Dim md5 As MD5 = System.Security.Cryptography.MD5.Create()
         Dim str1 = appid & szContent & salt & pass
         Dim inputBytes As Byte() = System.Text.Encoding.UTF8.GetBytes(str1)
