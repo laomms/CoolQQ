@@ -85,3 +85,39 @@ public string LanguageDetect(string szContet)
 
 		return szRes;
 	}
+ public string GenerateSHA256String(object inputString)
+ {
+		SHA256 sha256 = SHA256Managed.Create();
+		byte[] bytes = Encoding.UTF8.GetBytes(inputString);
+		byte[] hash = sha256.ComputeHash(bytes);
+		StringBuilder stringBuilder = new StringBuilder();
+
+		for (int i = 0; i < hash.Length; i++)
+		{
+			stringBuilder.Append(hash[i].ToString("X2"));
+		}
+		return stringBuilder.ToString();
+	}
+	public byte[] sign256(byte[] key, string msg)
+	{
+		System.Text.UTF8Encoding myEncoder = new System.Text.UTF8Encoding();
+		byte[] XML = myEncoder.GetBytes(msg);
+		System.Security.Cryptography.HMACSHA256 myHMACSHA256 = new System.Security.Cryptography.HMACSHA256(key);
+		byte[] HashCode = myHMACSHA256.ComputeHash(XML);
+		return HashCode;
+	}
+	public string BytesToString(byte[] Input)
+	{
+		System.Text.StringBuilder Result = new System.Text.StringBuilder(Input.Length * 2);
+		string Part = null;
+		foreach (byte b in Input)
+		{
+			Part = Convert.ToString(b, 16).ToUpper();
+			if (Part.Length == 1)
+			{
+				Part = "0" + Part;
+			}
+			Result.Append(Part);
+		}
+		return Result.ToString();
+	}
