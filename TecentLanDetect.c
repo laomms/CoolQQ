@@ -26,9 +26,8 @@ public string LanguageDetect(string szContet)
 		var Signature = BytesToString(sign256(secretSigning, stringToSign)).ToLower();
 
 		var Authorization = "TC3-HMAC-SHA256 Credential=" + SecretId + "/" + szDate + "/tmt/tc3_request, SignedHeaders=content-type;host, Signature=" + Signature;
-
-		var url = "https://tmt.ap-guangzhou.tencentcloudapi.com";
-		HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+		
+	        HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create("https://tmt.ap-guangzhou.tencentcloudapi.com");
 		httpWebRequest.KeepAlive = true;
 		httpWebRequest.Method = "POST";
 		httpWebRequest.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
