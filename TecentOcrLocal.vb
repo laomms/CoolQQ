@@ -15,7 +15,7 @@
             
             
     Public Function TecentOcrLocal(image As Image, path As String) As String
-        Dim Authorization = HmacSha1Sign("Your AppId", "AKIDwlKK5MNAgww3vYo2tEJxMVP7ZmnY6PTH", "lGWaOyMUN4VilbCYeU8WhhSyEJ9oDNLb", "bucket-01", 2592000)
+        Dim Authorization = HmacSha1Sign("Your AppId", "SecretID", "SecretKey", "bucket-01", 2592000)
         Dim boundary As String = "--------------" & DateTime.Now.Ticks.ToString("x")
         Dim header As String = vbNewLine & "--" & boundary & vbNewLine & "Content-Disposition:form-data;name=""appid"";" & vbNewLine & vbNewLine & "1256493063" & vbNewLine
         header = header + "--" & boundary & vbNewLine & "Content-Disposition:form-data;name=""bucket"";" & vbNewLine & vbNewLine & "bucket-01" & vbNewLine
