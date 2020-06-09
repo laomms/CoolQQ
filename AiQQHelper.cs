@@ -1,10 +1,3 @@
-﻿/*
- * 云南尚雅科技文化有限公司
- * 作者：allen刘
- * http://www.sykjwh.cn/
- */
-
-
 using System;
 using System.Collections.Generic;
 using System.IO;
